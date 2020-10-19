@@ -6,7 +6,8 @@
 			:ref="`vItem-${index}`"
 			:focus="focusIndex === index"
 			class="verify-item"
-			type="text"
+			type="number"
+			:maxlength="1"
 			@input="throttle(handlerInput(index, $event), 500)()"
 			@focus="handlerFocus(index)"
 		/>

@@ -12,9 +12,9 @@
 			v-model="inputValue"
 			class="verify-content"
 			@submit="handlerToVerify"
-		></VerifyInput>
+		/>
 		<view v-else-if="[LOGIN_EVENT_TYPE.PWD, LOGIN_EVENT_TYPE.SET_PWD].includes(eventType)" class="input-wrapper">
-			<input v-model="inputValue" class="input-phone" password type="text" placeholder="请设置密码" />
+			<input v-model="inputValue" class="input-phone" password :focus="true" type="text" placeholder="请设置密码" />
 		</view>
 		<Button circle @tap="handlerToVerify">验证</Button>
 		<view class="login-tip">
@@ -94,8 +94,6 @@ export default {
 		this.phone = phone;
 		this.eventType = eventType;
 
-		console.log(this.eventType);
-
 		this.pageInfo = pageInfoMap[this.eventType];
 
 		this.setCountDown();
@@ -124,13 +122,17 @@ export default {
 		 * @desc 跳转到【验证码】
 		 */
 		handlerToVerify() {
-			console.log('ok');
 			if (this.eventType === LOGIN_EVENT_TYPE.FORGET_PWD) {
 				toNextPage({
 					area: this.area,
 					phone: this.phone,
 					eventType: LOGIN_EVENT_TYPE.SET_PWD
 				});
+			} else if (this.eventType === LOGIN_EVENT_TYPE.CODE) {
+				console.log('ok', this.eventType)
+				uni.navigateTo({
+					url: '/pages/home/home'
+				})
 			}
 		},
 		handlerBack() {

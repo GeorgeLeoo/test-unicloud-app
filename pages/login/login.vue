@@ -51,17 +51,26 @@ export default {
 		 * @desc 跳转到【验证码】
 		 */
 		handlerToLogin() {
-			toNextPage({
-				area: this.area,
-				phone: this.phone,
-				eventType: LOGIN_EVENT_TYPE.CODE
-			});
+			uni.reLaunch({
+				url: '/pages/home/home'
+			})
+			// toNextPage({
+			// 	area: this.area,
+			// 	phone: this.phone,
+			// 	eventType: LOGIN_EVENT_TYPE.CODE
+			// });
 		},
-
 		/**
 		 * @desc 跳转到【使用密码登录】
 		 */
 		handlerToUsePwd() {
+			if (!this.phone) {
+				uni.showToast({
+					icon: 'none',
+					title: '请先输入手机号'
+				})
+				return
+			}
 			toNextPage({
 				area: this.area,
 				phone: this.phone,
@@ -73,6 +82,12 @@ export default {
 		 * @desc 跳转到【忘记密码】
 		 */
 		handlerToForgetPwd() {
+			if (!this.phone) {
+				uni.showToast({
+					title: '请选输入手机号'
+				})
+				return
+			}
 			toNextPage({
 				area: this.area,
 				phone: this.phone,
@@ -184,7 +199,7 @@ export default {
 }
 
 .other-icon {
-	width: 60rpx;
-	height: 60rpx;
+	width: 70rpx;
+	height: 70rpx;
 }
 </style>
